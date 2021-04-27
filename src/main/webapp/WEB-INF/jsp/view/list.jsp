@@ -13,7 +13,7 @@
 <a href="<c:url value="/ticket/create" />">Create a Ticket</a><br /><br />
 <c:choose>
     <c:when test="${fn:length(ticketDatabase) == 0}">
-        <i>There are no tickets in the system.</i>
+        <i>There are no food in the system.</i>
     </c:when>
     <c:otherwise>
         <c:forEach items="${ticketDatabase}" var="entry">

@@ -1,3 +1,8 @@
+DROP TABLE users;
+DROP TABLE food;
+DROP TABLE orderhistory;
+DROP TABLE user_roles;
+
 --function 1
 CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
@@ -11,15 +16,17 @@ CREATE TABLE users (
 CREATE TABLE food (
     itemid INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     itemname VARCHAR(50) NOT NULL,
+--addition feature 2
     photo BLOB,
     price VARCHAR(255) NOT NULL,
     selling BOOLEAN NOT NULL,
     PRIMARY KEY (itemid)
 );
 --additional feature 1
-CREATE TABLE user_roles (
+CREATE TABLE orderhistory (
     order_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     username VARCHAR(50) NOT NULL,
+    totalprice INTEGER NOT NULL
     PRIMARY KEY (order_id),
     FOREIGN KEY (username) REFERENCES users(username)
 );
@@ -31,14 +38,24 @@ CREATE TABLE user_roles (
     PRIMARY KEY (user_role_id),
     FOREIGN KEY (username) REFERENCES users(username)
 );
-/*
-INSERT INTO users VALUES ('keith', '{noop}keithpw');
+--user data
+
+
+--food data
+INSERT INTO food (itemname, price, selling)
+VALUES ("cheeseburger", 30, true);
+INSERT INTO food (itemname, price, selling)
+VALUES ("fried fries", 10, true);
+INSERT INTO food (itemname, price, selling)
+VALUES ("keithls burger", 100, true);
+
+
+INSERT INTO users VALUES ('admin', '{noop}admin');
 INSERT INTO user_roles(username, role) VALUES ('keith', 'ROLE_USER');
 INSERT INTO user_roles(username, role) VALUES ('keith', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('vanessa', '{noop}vanessapw');
+INSERT INTO users VALUES ('root', '{noop}root');
 INSERT INTO user_roles(username, role) VALUES ('vanessa', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('kevin', '{noop}kevinpw');
+INSERT INTO users VALUES ('user', '{noop}user');
 INSERT INTO user_roles(username, role) VALUES ('kevin', 'ROLE_USER');
-*/
