@@ -18,7 +18,7 @@
 
     <http auto-config="true">
         <intercept-url pattern="/item/delete/**" access="hasRole('ADMIN')" /> 
-        <intercept-url pattern="/item/**" access="hasAnyRole('USER','ADMIN')" />
+       <!-- <intercept-url pattern="/item/**" access="hasAnyRole('USER','ADMIN')" />-->
         <form-login login-page="/login" authentication-failure-url="/login?error" />
         <logout logout-success-url="/login?logout"
                 invalidate-session="true"

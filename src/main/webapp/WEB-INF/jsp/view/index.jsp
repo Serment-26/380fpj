@@ -7,6 +7,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>food list</h1>
+        <c:forEach var="entry" items="${entries}">
+            <a href="<c:url value="/item/?id=${entry.itemid}"/>">${entry.itemname}</a>
+        </c:forEach>
     </body>
 </html>
