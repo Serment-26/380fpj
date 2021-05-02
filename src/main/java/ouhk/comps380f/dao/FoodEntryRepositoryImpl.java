@@ -1,4 +1,5 @@
 package ouhk.comps380f.dao;
+
 import ouhk.comps380f.model.FoodEntry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,15 +17,15 @@ public class FoodEntryRepositoryImpl implements FoodEntryRepository{
 
     private final JdbcOperations jdbcOp;
     private static final String SQL_INSERT_ENTRY
-            = "insert into guestbook (name, message, date) values (?, ?, ?)";
+            = "insert into food (name, message, date) values (?, ?, ?)";
     private static final String SQL_UPDATE_ENTRY
-            = "update guestbook set name = ?, message = ?, date = ? where id = ?";
+            = "update food set name = ?, message = ?, date = ? where id = ?";
     private static final String SQL_SELECT_ALL_ENTRY
-            = "select id, name, message, date from guestbook";
+            = "select * from food";
     private static final String SQL_SELECT_ENTRY
-            = "select id, name, message, date from guestbook where id = ?";
+            = "select * from food where id = ?";
     private static final String SQL_DELETE_ENTRY
-            = "delete from guestbook where id = ?";
+            = "delete from fppd where id = ?";
     @Autowired
     public FoodEntryRepositoryImpl(DataSource dataSource) {
         jdbcOp = new JdbcTemplate(dataSource);
@@ -35,7 +36,7 @@ public class FoodEntryRepositoryImpl implements FoodEntryRepository{
             FoodEntry entry = new FoodEntry();
             entry.setItemid(rs.getInt("itemid"));
             entry.setItemname(rs.getString("itemname"));
-            entry.setPhoto(rs.getString("photo"));
+            entry.setPhoto(rs.getInt("photo"));
             entry.setPrice(rs.getDouble("price"));
             entry.setSelling(rs.getBoolean("selling"));
             return entry;
@@ -47,24 +48,17 @@ public class FoodEntryRepositoryImpl implements FoodEntryRepository{
     public void removeEntryById(Integer id) {
         jdbcOp.update(SQL_DELETE_ENTRY, id);
     }
-    public List<FoodBookEntry> listEntries() {
+    public List<FoodEntry> listEntries() {
         return jdbcOp.query(SQL_SELECT_ALL_ENTRY, new EntryRowMapper());
     }
-//need to be updated
+
     public void updateEntry(FoodEntry entry) {
-        jdbcOp.update(SQL_UPDATE_ENTRY,
-                entry.getName(),
-                entry.getMessage(),
-                new Timestamp(entry.getDate().getTime()),
-                entry.getId());
+        jdbcOp.update(SQL_UPDATE_ENTRY,entry.getItemid());
+                
     }
 //need to bbe updated
-    public void addEntry(GuestBookEntry entry) {
-        jdbcOp.update(SQL_INSERT_ENTRY,
-                entry.getName(),
-                entry.getMessage(),
-                new Timestamp(entry.getDate().getTime())
-        );
+    public void addEntry(FoodEntry entry) {
+        jdbcOp.update(SQL_INSERT_ENTRY,entry.getItemname());
     }
 
 }
