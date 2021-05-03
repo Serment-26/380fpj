@@ -11,7 +11,7 @@ public interface FoodEntryRepository {
 
     public List<FoodEntry> listEntries();
 
-    public FoodEntry getEntryById(Integer id);
+    public FoodEntry getEntryById(int id);
 
-    public void removeEntryById(Integer id);
+    public void removeEntryById(int id);
 }

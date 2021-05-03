@@ -30,9 +30,8 @@ public class IndexController {
     private FoodEntryRepository foodEntryRepo;
 
     @GetMapping
-    public String index(ModelMap model) {
-        model.addAttribute("entries", foodEntryRepo.listEntries());
-        return "list";
+    public String index() {
+        return "redirect:/item/list";
     }
 
     @GetMapping("/login")

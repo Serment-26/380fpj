@@ -14,9 +14,9 @@
         <c:if test="${fn:length(entries) > 0}">
             <ul>
         <c:forEach var="entry" items="${entries}">
-            <li><a href="<c:url value="/item/?id=${entry.itemid}"/>">${entry.itemname}</a></li>
+            <li><a href="<c:url value="/item/show/${entry.itemid}"/>">${entry.itemname}</a></li>
         </c:forEach>
-            </ul>>
+            </ul>
       </c:if>
     </body>
 </html>

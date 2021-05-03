@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,20 +27,24 @@ import ouhk.comps380f.model.FoodEntry;
 @RequestMapping("/item")
 public class ItemController {
 
+    @Resource
     private FoodEntryRepository foodEntryRepo;
 
     private volatile long TICKET_ID_SEQUENCE = 1;
     private Map<Long, Ticket> ticketDatabase = new Hashtable<>();
 
-    @GetMapping({"", "/item"})
-    public String index(ModelMap model) {
+    @GetMapping({"","/list"})
+    public String list(ModelMap model){
         model.addAttribute("entries", foodEntryRepo.listEntries());
-        return "item";
-    }
-    @GetMapping(value = {"", "/list"})
-    public String list(ModelMap model) {
-        model.addAttribute("ticketDatabase", ticketDatabase);
         return "list";
+    }
+
+    @GetMapping("/show/{itemid}")
+    public String item(@PathVariable("itemid")int itemid,ModelMap model) {
+        FoodEntry foods= foodEntryRepo.getEntryById(itemid);
+        model.addAttribute("ItemId", itemid);
+        model.addAttribute("Items", foods);
+        return "food";
     }
 
     @GetMapping("/create")

@@ -41,9 +41,9 @@ public class FoodEntryRepositoryImpl implements FoodEntryRepository{
     private static final String SQL_SELECT_ALL_ENTRY
             = "select * from food";
     private static final String SQL_SELECT_ENTRY
-            = "select * from food where id = ?";
+            = "select * from food where itemid = ?";
     private static final String SQL_DELETE_ENTRY
-            = "delete from fppd where id = ?";
+            = "delete from food where itemid = ?";
 
     @Autowired
     public FoodEntryRepositoryImpl(DataSource dataSource) {
@@ -64,13 +64,13 @@ public class FoodEntryRepositoryImpl implements FoodEntryRepository{
 
     @Override
     @Transactional(readOnly = true)
-    public FoodEntry getEntryById(Integer id) {
+    public  FoodEntry getEntryById(int id) {
         return jdbcOp.queryForObject(SQL_SELECT_ENTRY, new EntryRowMapper(), id);
     }
 
     @Override
     @Transactional
-    public void removeEntryById(Integer id) {
+    public void removeEntryById(int id) {
         jdbcOp.update(SQL_DELETE_ENTRY, id);
     }
 
