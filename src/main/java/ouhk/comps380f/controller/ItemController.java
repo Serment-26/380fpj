@@ -19,13 +19,23 @@ import org.springframework.web.servlet.view.RedirectView;
 import ouhk.comps380f.model.Attachment;
 import ouhk.comps380f.model.Ticket;
 import ouhk.comps380f.view.DownloadingView;
+import ouhk.comps380f.dao.FoodEntryRepository;
+import ouhk.comps380f.model.FoodEntry;
 
 @Controller
 @RequestMapping("/item")
 public class ItemController {
+
+    private FoodEntryRepository foodEntryRepo;
+
     private volatile long TICKET_ID_SEQUENCE = 1;
     private Map<Long, Ticket> ticketDatabase = new Hashtable<>();
 
+    @GetMapping({"", "/item"})
+    public String index(ModelMap model) {
+        model.addAttribute("entries", foodEntryRepo.listEntries());
+        return "item";
+    }
     @GetMapping(value = {"", "/list"})
     public String list(ModelMap model) {
         model.addAttribute("ticketDatabase", ticketDatabase);

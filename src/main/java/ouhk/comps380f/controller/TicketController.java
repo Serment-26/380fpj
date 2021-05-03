@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import ouhk.comps380f.model.Attachment;
 import ouhk.comps380f.model.Ticket;
 import ouhk.comps380f.view.DownloadingView;
+import ouhk.comps380f.dao.FoodEntryRepository;
+import ouhk.comps380f.model.FoodEntry;
 
 @Controller
-@RequestMapping("/ticket")
+@RequestMapping("/item")
 public class TicketController {
 
     private volatile long TICKET_ID_SEQUENCE = 1;
@@ -30,9 +33,12 @@ public class TicketController {
     @GetMapping(value = {"", "/list"})
     public String list(ModelMap model) {
         model.addAttribute("ticketDatabase", ticketDatabase);
-        return "list";
+        return "item";
     }
+    @GetMapping("/item")
+    public ModelAndView item(){
 
+    }
     @GetMapping("/create")
     public ModelAndView create() {
         return new ModelAndView("add", "ticketForm", new Form());

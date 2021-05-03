@@ -1,35 +1,22 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Customer Support</title>
-</head>
-<body>
-<c:url var="logoutUrl" value="/logout"/>
-<form action="${logoutUrl}" method="post">
-    <input type="submit" value="Log out" />
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
-<h2>Tickets</h2>
-<a href="<c:url value="/ticket/create" />">Create a Ticket</a><br /><br />
-<c:choose>
-    <c:when test="${fn:length(ticketDatabase) == 0}">
-        <i>There are no food in the system.</i>
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${ticketDatabase}" var="entry">
-            Ticket ${entry.key}:
-            <a href="<c:url value="/ticket/view/${entry.key}" />">
-               <c:out value="${entry.value.subject}" /></a>
-            (customer: <c:out value="${entry.value.customerName}" />)
-            <security:authorize access="hasRole('ADMIN') or principal.username=='${entry.value.customerName}'">
-                [<a href="<c:url value="/ticket/edit/${entry.key}" />">Edit</a>]
-            </security:authorize>
-            <security:authorize access="hasRole('ADMIN')">
-                [<a href="<c:url value="/ticket/delete/${entry.key}" />">Delete</a>]
-            </security:authorize>            
-            <br />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>food list</h1>
+        <c:if test="${fn:length(entries) == 0}">
+        <p>There is no food yet.</p>
+        </c:if>
+        <c:if test="${fn:length(entries) > 0}">
+            <ul>
+        <c:forEach var="entry" items="${entries}">
+            <li><a href="<c:url value="/item/?id=${entry.itemid}"/>">${entry.itemname}</a></li>
         </c:forEach>
-    </c:otherwise>
-</c:choose>
-</body>
+            </ul>>
+      </c:if>
+    </body>
 </html>

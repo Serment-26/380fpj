@@ -38,8 +38,13 @@ CREATE TABLE user_roles (
     PRIMARY KEY (user_role_id),
     FOREIGN KEY (username) REFERENCES users(username)
 );
---user data
-
+CREATE TABLE comment(
+    username VARCHAR(50) NOT NULL,
+    itemid INTEGER NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (itemid) REFERENCES food(itemid)
+);
 
 --food data
 INSERT INTO food (itemname, price, selling)
@@ -49,13 +54,13 @@ VALUES ('fried fries', '10', true);
 INSERT INTO food (itemname, price, selling)
 VALUES ('keith burger', '100', true);
 
-
-INSERT INTO users VALUES ('admin', '{noop}admin','test','88888888','dllm265');
+--user data
+INSERT INTO users VALUES ('admin', '{noop}admin','test','88888888','addressdllm265');
 INSERT INTO user_roles(username, role) VALUES ('admin', 'ROLE_USER');
 INSERT INTO user_roles(username, role) VALUES ('admin', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('root', '{noop}root','test','88888888','dllm265');
+INSERT INTO users VALUES ('root', '{noop}root','test','88888888','addressdllm265');
 INSERT INTO user_roles(username, role) VALUES ('root', 'ROLE_ADMIN');
 
-INSERT INTO users VALUES ('user', '{noop}user','test','88888888','dllm265');
+INSERT INTO users VALUES ('user', '{noop}user','test','88888888','addressdllm265');
 INSERT INTO user_roles(username, role) VALUES ('user', 'ROLE_USER');
